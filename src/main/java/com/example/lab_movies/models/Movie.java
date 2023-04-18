@@ -2,7 +2,8 @@ package com.example.lab_movies.models;
 
 import jakarta.persistence.*;
 
-@Entity(name = "movies")
+@Entity
+@Table(name = "movies")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

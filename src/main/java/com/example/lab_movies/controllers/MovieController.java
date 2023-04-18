@@ -16,11 +16,6 @@ import java.util.Optional;
 public class MovieController {
     @Autowired
     MovieService movieService;
-    @PostMapping
-    public ResponseEntity<Movie> newMovie() {
-        Movie newMovie = movieService.addNewMovie();
-        return new ResponseEntity<>(newMovie, HttpStatus.ACCEPTED);
-    }
 
     @GetMapping
     public ResponseEntity<List<Movie>> getAllMovies(){
@@ -28,14 +23,32 @@ public class MovieController {
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Movie> getMovieById(@PathVariable int id){
-        Optional<Movie> movie = movieService.getMovieById(id);
-        if(movie.isPresent()){
-            return new ResponseEntity<>(movie.get(), HttpStatus.OK);
+    public ResponseEntity<Movie> getMovieById(@PathVariable Integer id){
+        Movie movie = movieService.getMovieById(id);
+        if(movie !=null){
+            return new ResponseEntity<>(movie, HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+    @PostMapping
+    public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
+        Movie savedMovie = movieService.addMovie(movie);
+        return new ResponseEntity<>(savedMovie, HttpStatus.CREATED);
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
